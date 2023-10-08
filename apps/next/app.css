@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
-  max-width: 100vw;
-  /* overflow-x: hidden;
-  overflow-y: auto; */
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  width: 100vw;
+  height: 100vh;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 body {
@@ -120,7 +125,7 @@ article li strong {
 
 /* display block > display inline-flex bug */
 /* see bolded text inside paragraph in mdx */
-span._display-1adg3ll > span._display-xoduu5 {
+span._display-1adg3ll>span._display-xoduu5 {
   display: inline;
 }
 
@@ -136,12 +141,10 @@ span._display-1adg3ll > span._display-xoduu5 {
 }
 
 .hero-gradient {
-  background: linear-gradient(
-    30deg,
-    var(--background) -50%,
-    transparent,
-    var(--background) 150%
-  );
+  background: linear-gradient(30deg,
+      var(--background) -50%,
+      transparent,
+      var(--background) 150%);
 }
 
 .hero-blur {
@@ -170,27 +173,35 @@ pre {
 .all {
   transition-property: all;
 }
+
 .transform {
   transition-property: transform;
 }
+
 .opacity {
   transition-property: opacity;
 }
+
 .background {
   transition-property: background;
 }
+
 .color {
   transition-property: color;
 }
+
 .top {
   transition-property: top;
 }
+
 .bottom {
   transition-property: bottom;
 }
+
 .left {
   transition-property: left;
 }
+
 .right {
   transition-property: right;
 }
@@ -198,12 +209,15 @@ pre {
 .linear {
   transition-timing-function: linear;
 }
+
 .ease-in {
   transition-timing-function: ease-in;
 }
+
 .ease-in-out {
   transition-timing-function: ease-in-out;
 }
+
 .ease-out {
   transition-timing-function: ease-out;
 }
@@ -211,25 +225,32 @@ pre {
 .ms50 {
   transition-duration: 50ms;
 }
+
 .ms100 {
   transition-duration: 100ms;
 }
+
 .ms150 {
   transition-duration: 150ms;
 }
+
 .ms200 {
   transition-duration: 200ms;
 }
+
 .ms300 {
   transition-duration: 300ms;
 }
+
 .s1,
 .ms1000 {
   transition-duration: 1s;
 }
+
 .s2 {
   transition-duration: 2s;
 }
+
 .s5 {
   transition-duration: 5s;
 }
@@ -239,15 +260,13 @@ pre {
 }
 
 .rainbow {
-  background-image: -webkit-linear-gradient(
-    0deg,
-    var(--orange10),
-    var(--yellow10),
-    var(--green10) 56%,
-    var(--blue10) 56.1%,
-    var(--pink10),
-    var(--red10)
-  );
+  background-image: -webkit-linear-gradient(0deg,
+      var(--orange10),
+      var(--yellow10),
+      var(--green10) 56%,
+      var(--blue10) 56.1%,
+      var(--pink10),
+      var(--red10));
 }
 
 /* intro paragraph links */
@@ -257,23 +276,19 @@ pre {
 }
 
 .xmas-season .rainbow {
-  background-image: -webkit-linear-gradient(
-    -220deg,
-    #009135,
-    #009135,
-    #59af2f,
-    #ff0024 60%,
-    #ff0024
-  );
+  background-image: -webkit-linear-gradient(-220deg,
+      #009135,
+      #009135,
+      #59af2f,
+      #ff0024 60%,
+      #ff0024);
 }
 
 .easter-season .rainbow {
-  background-image: -webkit-linear-gradient(
-    -220deg,
-    var(--pink10),
-    var(--yellow10),
-    var(--pink10)
-  );
+  background-image: -webkit-linear-gradient(-220deg,
+      var(--pink10),
+      var(--yellow10),
+      var(--pink10));
 }
 
 .clip-text {
@@ -326,12 +341,12 @@ iframe {
   backdrop-filter: blur(2px);
 }
 
-.hover-highlights > * {
+.hover-highlights>* {
   opacity: 0.95;
   transition: all ease-in 150ms;
 }
 
-.hover-highlights:hover > * {
+.hover-highlights:hover>* {
   opacity: 1;
 }
 
@@ -530,14 +545,19 @@ iframe {
 .typewriter {
   opacity: 0;
 }
+
 /* end */
 
 .no-scrollbar {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
 }
+
 .no-scrollbar::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none;
+  /* Safari and Chrome */
 }
 
 input,
@@ -568,6 +588,7 @@ textarea {
   height: 0;
   width: 0;
 }
+
 .custom-scroll ::-webkit-scrollbar-thumb {
   border: 5.5px solid rgba(0, 0, 0, 0);
   background-clip: padding-box;
@@ -575,6 +596,7 @@ textarea {
   background-color: rgba(150, 150, 150, 0.15);
   display: none;
 }
+
 .custom-scroll:hover ::-webkit-scrollbar-thumb {
   display: flex;
 }
@@ -648,7 +670,7 @@ textarea {
 }
 
 .c-target-parent[data-dragging='true'] .target,
-.c-target-parent:hover > .target {
+.c-target-parent:hover>.target {
   opacity: 1;
 }
 
@@ -659,15 +681,17 @@ textarea {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
-.glowing > * {
+.glowing>* {
   position: relative;
 }
 
-.glowing > *::before {
+.glowing>*::before {
   display: flex;
   content: ' ';
   inset: 0;
@@ -679,7 +703,7 @@ textarea {
   transition: all ease-out 500ms;
 }
 
-.glowing:hover > *::before {
+.glowing:hover>*::before {
   box-shadow: 0 0 60px var(--color10);
   opacity: 0.6;
 }
@@ -706,21 +730,25 @@ textarea {
     right: 0;
     transform: scale(1);
   }
+
   20% {
     top: 100px;
     right: 100px;
     transform: scale(1.4);
   }
+
   40% {
     top: 200px;
     right: 0px;
     transform: scale(1.4);
   }
+
   60% {
     top: 100px;
     right: -100px;
     transform: scale(1);
   }
+
   80% {
     top: 0px;
     right: 0;
@@ -738,6 +766,7 @@ textarea {
     opacity: 0;
     top: -20px;
   }
+
   100% {
     opacity: 1;
     top: 0px;
@@ -772,7 +801,6 @@ textarea {
 }
 
 .clip-slice {
-  mask-image: url(./public/heart.svg);
   mask-size: 20% 20%;
   animation: clip-fade2 90s infinite alternate;
 }
@@ -824,4 +852,85 @@ textarea {
 .text-wrap-pretty {
   text-wrap: pretty;
   -webkit-text-wrap: pretty;
+}
+
+/* PDF RENDERER STYLES */
+.textLayer {
+  position: absolute;
+  text-align: initial;
+  inset: 0;
+  overflow: hidden;
+  line-height: 1;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+  transform-origin: 0 0;
+  z-index: 2;
+}
+
+.textLayer :is(span, br) {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  margin: 0;
+  transform-origin: 0 0;
+}
+
+.textLayer :is(span):hover {
+  border-radius: 1px;
+  background-color: #ffeb0c81;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px 2px #ffeb0c81;
+}
+
+/* Only necessary in Google Chrome, see issue 14205, and most unfortunately
+ * the problem doesn't show up in "text" reference tests. */
+.textLayer span.markedContent {
+  top: 0;
+  height: 0;
+}
+
+.textLayer .highlight {
+  margin: -1px;
+  padding: 1px;
+  background-color: var(--highlight-bg-color);
+  border-radius: 4px;
+}
+
+.textLayer .highlight.appended {
+  position: initial;
+}
+
+.textLayer .highlight.begin {
+  border-radius: 4px 0 0 4px;
+}
+
+.textLayer .highlight.end {
+  border-radius: 0 4px 4px 0;
+}
+
+.textLayer .highlight.middle {
+  border-radius: 0;
+}
+
+.textLayer .highlight.selected {
+  background-color: var(--highlight-selected-bg-color);
+}
+
+/* Avoids https://github.com/mozilla/pdf.js/issues/13840 in Chrome */
+.textLayer br::selection {
+  background: transparent;
+}
+
+.textLayer .endOfContent {
+  display: block;
+  position: absolute;
+  inset: 100% 0 0;
+  z-index: -1;
+  cursor: default;
+  user-select: none;
+}
+
+.textLayer .endOfContent.active {
+  top: 0;
 }
