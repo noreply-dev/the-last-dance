@@ -1,0 +1,10 @@
+.document {
+  height: 100%;
+  width: 100%;
+  overflow-x: visible;
+  gap: 20px;
+}
+
+.document::-webkit-scrollbar {
+  display: none;
+}
