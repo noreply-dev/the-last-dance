@@ -1,4 +1,4 @@
-import { NoteSchema, NoteType } from "./notesSchemas"
+import { PageSchema, PageType } from "./pagesSchemas"
 import { SessionDataType } from 'protolib/api/lib/session'
 import { ProtoModel, ProtoCollection } from 'protolib/base'
 
@@ -12,7 +12,7 @@ export class PageModel extends ProtoModel<PageModel> {
   }
 
   validate(): this {
-    NoteSchema.parse(this.data); //validate
+    PageSchema.parse(this.data); //validate
     return this;
   }
 }

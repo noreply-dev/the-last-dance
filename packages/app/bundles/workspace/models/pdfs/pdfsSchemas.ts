@@ -6,7 +6,7 @@ export const BasePdfSchema = z.object({
   lastModify: z.date(),
   uploadedAt: z.date(),
   uploadedBy: z.string(),
-  pages: z.array(z.string()),
+  pagesIds: z.array(z.string()),
 })
 
 export const PdfSchema = z.object({
