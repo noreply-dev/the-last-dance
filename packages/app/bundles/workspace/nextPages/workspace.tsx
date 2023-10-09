@@ -1,13 +1,11 @@
 import Editor from "../components/workspace/Editor";
 import PdfPage from "../components/workspace/PdfPage";
 import PdfPreview from "../components/workspace/PdfPreviewer";
-import { WorkspaceProvider } from "../context/WorkspaceContext";
 import { useSession, withSession } from 'protolib'
 import { NextPageContext } from 'next'
 import { atom, useAtom } from 'jotai'
 
 export const FileBlobAtom = atom('https://www.grupo-sm.com/sites/sm-espana/files/resources/Imagenes/MKT/aprendo-en-casa/Religion/Secundaria/Peli%CC%81cula-14.-1-La-Misio%CC%81n.pdf')
-export const CurrentPageAtom = atom(1)
 export const PagesIndexesAtom = atom([])
 
 export function getComputedPage(currentPage: any, human: any) {

@@ -1,12 +1,10 @@
-'use client'
-
 import { FocusFieldAtom, FocusProductAtom, ProductsAtom } from "../../context/ProductsContext"
-import { getComputedPage } from "../../context/WorkspaceContext"
-import { useCallback, useContext, useEffect, useRef, useState } from "react"
+import { CurrentPageAtom, getComputedPage } from "../../context/WorkspaceContext"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Document, Page } from "react-pdf"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { useAtom } from "jotai"
-import { CurrentPageAtom, FileBlobAtom } from '../../nextPages/workspace';
+import { FileBlobAtom } from '../../nextPages/workspace';
 import Image from "next/image"
 
 export default function PdfPage() {
@@ -49,6 +47,7 @@ export default function PdfPage() {
       // since the Object.keys returns always an array ordered
       // following a set of rules.The focusField index works here and
       // on the fields editor on the right
+      console.log(newPagesData, currentPage)
       let field = Object.keys(
         newPagesData[getComputedPage(currentPage, false)][focusProduct]
       )[focusField]

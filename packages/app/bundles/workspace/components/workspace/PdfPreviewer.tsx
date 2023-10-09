@@ -4,11 +4,11 @@ import style from './pdf.module.css'
 import { useEffect, useState } from "react";
 import { pdfjs } from 'react-pdf'
 import { Document, Page } from "react-pdf"
-import { getComputedPage } from '../../context/WorkspaceContext';
+import { CurrentPageAtom } from '../../context/WorkspaceContext';
 import Image from 'next/image';
 import { FocusFieldAtom, FocusProductAtom, ProductsAtom, ProductsSchemasAtom } from '../../context/ProductsContext';
 import { useAtom } from 'jotai'
-import { CurrentPageAtom, FileBlobAtom, PagesIndexesAtom } from '../../nextPages/workspace';
+import { FileBlobAtom, PagesIndexesAtom } from '../../nextPages/workspace';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 

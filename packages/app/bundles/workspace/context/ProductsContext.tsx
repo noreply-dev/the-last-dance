@@ -1,7 +1,4 @@
-import React, { createContext, useEffect, useRef, useState } from 'react'
 import { atom } from 'jotai'
-
-// jotai version
 
 export const ProductsAtom = atom([[{}]])
 export const ProductsSchemasAtom = atom([''])
