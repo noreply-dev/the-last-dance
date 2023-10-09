@@ -1,17 +1,17 @@
 'use client'
 
-import { FocusFieldAtom, FocusProductAtom, ProductsAtom, ProductsContext } from "context/ProductsContext"
-import { WorkspaceContext, getComputedPage } from "context/WorkspaceContext"
+import { FocusFieldAtom, FocusProductAtom, ProductsAtom } from "../../context/ProductsContext"
+import { getComputedPage } from "../../context/WorkspaceContext"
 import { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { Document, Page } from "react-pdf"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { useAtom } from "jotai"
-import { fileBlobAtom } from "pages"
+import { CurrentPageAtom, FileBlobAtom } from '../../nextPages/workspace';
 import Image from "next/image"
 
 export default function PdfPage() {
-  const [fileBlob] = useAtom(fileBlobAtom)
-  const { workspace } = useContext(WorkspaceContext)
+  const [fileBlob] = useAtom(FileBlobAtom)
+  const [currentPage] = useAtom(CurrentPageAtom)
 
   const [pagesData, setPagesData] = useAtom(ProductsAtom)
   const [focusProduct, setFocusProduct] = useAtom(FocusProductAtom)
@@ -50,7 +50,7 @@ export default function PdfPage() {
       // following a set of rules.The focusField index works here and
       // on the fields editor on the right
       let field = Object.keys(
-        newPagesData[getComputedPage(workspace, false)][focusProduct]
+        newPagesData[getComputedPage(currentPage, false)][focusProduct]
       )[focusField]
 
       if (!field) {
@@ -58,11 +58,11 @@ export default function PdfPage() {
       }
 
       if (event.shiftKey) {
-        newPagesData[getComputedPage(workspace, false)][focusProduct][field] =
-          newPagesData[getComputedPage(workspace, false)][focusProduct][field]
+        newPagesData[getComputedPage(currentPage, false)][focusProduct][field] =
+          newPagesData[getComputedPage(currentPage, false)][focusProduct][field]
           + ' ' + target.innerText
       } else {
-        newPagesData[getComputedPage(workspace, false)][focusProduct][field] =
+        newPagesData[getComputedPage(currentPage, false)][focusProduct][field] =
           target.innerText
       }
 
@@ -70,7 +70,7 @@ export default function PdfPage() {
 
       // focus field
       const max = Object.keys(
-        newPagesData[getComputedPage(workspace, false)][focusProduct]
+        newPagesData[getComputedPage(currentPage, false)][focusProduct]
       ).length - 1
 
       const newField = focusField + 1 > max
@@ -106,7 +106,7 @@ export default function PdfPage() {
           >
             <Page
               width={pdfWidth}
-              pageNumber={workspace.currentPage}
+              pageNumber={currentPage}
               className="overflow-hidden
           transition-all ease-in-out duration-[0.12s] rounded-2xl z-0"
               onClick={(e) => onPageClick(e)}
@@ -124,7 +124,7 @@ export default function PdfPage() {
 }
 
 function StorageActions() {
-  const { workspace } = useContext(WorkspaceContext)
+  const [currentPage] = useAtom(CurrentPageAtom)
   const [productsData] = useAtom(ProductsAtom)
 
   const actions = [
@@ -137,9 +137,9 @@ function StorageActions() {
       icon: '/file-down.svg',
       text: 'download page data',
       fn: () => {
-        const page = productsData[getComputedPage(workspace, false)]
+        const page = productsData[getComputedPage(currentPage, false)]
         const obj = {
-          page: getComputedPage(workspace, false),
+          page: getComputedPage(currentPage, false),
           data: page
         }
 
@@ -173,7 +173,7 @@ function StorageActions() {
 
         const a = document.createElement('a')
         a.href = blobUrl
-        a.download = getComputedPage(workspace, false)
+        a.download = getComputedPage(currentPage, false)
 
         a.click()
       },
