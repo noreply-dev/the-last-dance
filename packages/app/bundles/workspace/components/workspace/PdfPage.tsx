@@ -7,6 +7,11 @@ import { useAtom } from "jotai"
 import { FileBlobAtom } from '../../nextPages/workspace';
 import Image from "next/image"
 
+// assets
+import hardDrive from '../../resources/hard-drive.svg'
+import fileDown from '../../resources/file-down.svg'
+import fileStack from '../../resources/file-stack.svg'
+
 export default function PdfPage() {
   const [fileBlob] = useAtom(FileBlobAtom)
   const [currentPage] = useAtom(CurrentPageAtom)
@@ -127,12 +132,12 @@ function StorageActions() {
 
   const actions = [
     {
-      icon: '/hard-drive.svg',
+      icon: hardDrive,
       text: 'save changes',
       fn: () => { },
     },
     {
-      icon: '/file-down.svg',
+      icon: fileDown,
       text: 'download page data',
       fn: () => {
         const page = productsData[getComputedPage(currentPage, false)]
@@ -155,7 +160,7 @@ function StorageActions() {
       },
     },
     {
-      icon: '/file-stack.svg',
+      icon: fileStack,
       text: 'download pdf data',
       fn: () => {
         const pages = [...productsData]

@@ -17,6 +17,10 @@ import { ProductsList } from "./ProductsList"
 import { atom, useAtom } from 'jotai'
 import { CurrentPageAtom } from "../../../context/WorkspaceContext"
 
+// assets
+import trash from '../../../resources/trash.svg'
+import enter from '../../../resources/return.svg'
+
 export const productsListAtom = atom(false)
 
 export function Products() {
@@ -170,7 +174,7 @@ function Product({ product }: { product: any }) {
             active:scale-[0.94]"
       >
         <p>Add product property</p>
-        <Image src='/return.svg' alt="return icon" height={20} width={20} />
+        <Image src={enter} alt="return icon" height={20} width={20} />
       </button>
     </form>
   </div>)
@@ -236,7 +240,7 @@ export function ProductField(
           active:outline-[#FF0000] active:outline-offset-2 duration-[0.12s]
             active:scale-[0.94] focus:outline-[#FF0000] focus:outline-offset-2"
       >
-        <Image src="/trash.svg" alt="delete field icon" height={18} width={18} />
+        <Image src={trash} alt="delete field icon" height={18} width={18} />
       </button>
     </div>
   )

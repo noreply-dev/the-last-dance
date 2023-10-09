@@ -6,6 +6,11 @@ import { productsListAtom } from './Products'
 import { FocusFieldAtom, FocusProductAtom, ProductsAtom, resetPage } from '../../../context/ProductsContext'
 import { useAtom } from 'jotai'
 
+// assets
+import check from '../../../resources/check.svg'
+import bot from '../../../resources/bot.svg'
+import list from '../../../resources/list.svg'
+import reset from '../../../resources/reset.svg'
 
 // SOME REFACTOR HERE WILL BE GOOD BUT
 // FOR THE MOMENT, "MEJOR HECHO QUE PERFECTO"
@@ -21,24 +26,24 @@ export function PageActions() {
 
   const actions = [
     {
-      text: 'Save page products',
-      url: '/check.svg',
+      text: 'Validate page as reviewed',
+      url: check,
       action: () => { }
     },
     {
       text: 'AI page generation',
-      url: '/bot.svg',
+      url: bot,
       action: () => { }
     }, {
       text: 'Show all page products',
-      url: '/list.svg',
+      url: list,
       action: () => {
         setProductsListVisible(true)
       }
     },
     {
       text: 'Reset page',
-      url: '/reset.svg',
+      url: reset,
       action: () => {
         const page = getComputedPage(currentPage, false)
         resetPage(setPagesData, pagesData, page, focusProduct, setFocusField)
