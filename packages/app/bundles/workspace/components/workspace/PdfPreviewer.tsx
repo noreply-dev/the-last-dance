@@ -1,20 +1,21 @@
 'use client'
 
 import style from './pdf.module.css'
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { pdfjs } from 'react-pdf'
 import { Document, Page } from "react-pdf"
-import { WorkspaceContext, getComputedPage } from '../../context/WorkspaceContext';
+import { getComputedPage } from '../../context/WorkspaceContext';
 import Image from 'next/image';
 import { FocusFieldAtom, FocusProductAtom, ProductsAtom, ProductsSchemasAtom } from '../../context/ProductsContext';
 import { useAtom } from 'jotai'
-import { FileBlobAtom } from '../../nextPages/workspace';
+import { CurrentPageAtom, FileBlobAtom, PagesIndexesAtom } from '../../nextPages/workspace';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 export default function PdfPreview() {
   const [fileBlobUrl, setFileBlobUrl] = useAtom(FileBlobAtom)
-  const { workspace, setWorkspace } = useContext(WorkspaceContext)
+  const [currentPage, setCurrentPage] = useAtom(CurrentPageAtom)
+  const [pagesIndexes] = useAtom(PagesIndexesAtom)
 
   const [pagesSchemas, setPagesSchemas] = useAtom(ProductsSchemasAtom)
   const [pagesData, setPagesData] = useAtom(ProductsAtom)
@@ -36,10 +37,6 @@ export default function PdfPreview() {
 
   function pdfLoadSuccess({ numPages }: { numPages: number }): void {
     setNumPages(numPages);
-    setWorkspace({
-      ...workspace,
-      currentPage: 1
-    })
   }
 
   function changePage(index: any) {
@@ -65,10 +62,7 @@ export default function PdfPreview() {
     setFocusProduct(0)
     setFocusField(0)
 
-    setWorkspace({
-      ...workspace,
-      currentPage: index + 1
-    })
+    setCurrentPage(currentPage + 1)
   }
 
   return (
@@ -77,8 +71,8 @@ export default function PdfPreview() {
         className={style.document}>
         {
           Array.from(new Array(numPages), () => 0).map((_, i) => {
-            const current = workspace.currentPage === i + 1
-            const isValidated = workspace.pagesIndexes.includes(i + 1)
+            const current = currentPage === i + 1
+            const isValidated = pagesIndexes.includes(i + 1)
 
             return (
               <div
