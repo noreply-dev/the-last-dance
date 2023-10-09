@@ -1,0 +1,283 @@
+------------ FIRST OPTION 20/07/2023 -------------
+
+I have parsed a products catalog pdf and now I have all the pdf content operators.
+We need to parse these operators into a json object which will have product keys 
+like price or sizes.
+
+I just talk you about the global idea. The implentation of the mentioned format text is the next one: 
+
+<elementType>  <x-coordinate>    <y-coordinates>    <extra-data>
+
+And normally are a few lines. In this lines all the operators could not be important, but the most important thing is, that not every operator is relevant to be a whole produt and maybe it's only an attribute for another. So based in that you need to make assuptions of which lines could represent the same product and merge on a unique product .
+
+Okay, I think that you have understand. Let's tryit
+
+This is the first page of the pdf: 
+
+text 200.03 434.324 Plato de deluxed
+text 210.45 434.324 453€
+text 220.53 434.324 amarillo
+text 230.73 434.324 redondo
+text 200.67 454.84 Plato de supreme extreme
+text 210.24 454.84 1003€
+text 220.54 454.84 negro mate
+text 230.83 454.84 hexagonal
+
+Can you give me a json file with the list of products
+
+------------ INTIALIZE THE CHAT 20/07/2023 (joca's version) -------------
+
+I have parsed a products catalog pdf and now I have all the pdf content operators.
+We need to parse these operators into a json object which will have product keys 
+like price, size, or any other information about the product.
+
+The format is:
+<elementType>  <x-coordinate>    <y-coordinates>    <extra-data>
+
+And normally there are lots of lines, one for each pdf operator. Not all the operators are important, but the most important thing is, that not every operator is relevant to be a whole produt and maybe it's only an attribute for another. So based in that you need to make assumptions of which lines could represent the same product and merge on a unique product .
+
+First pdf page: 
+
+text      232.279      721.614      sets de ducha
+text      770.74      717.224      PVP
+text      896.224      696.357      Kit empotrado Senso
+text      1048.74      696.357      Columna Fonte
+text      792.704      687.853      Medidas (cm)
+text      876.288      679.349      Monomando
+text      946.512      679.349      Termostático
+text      1018.02      679.349      Monomando
+text      1088.25      679.349      Termostático
+text      362.551      667.437      Senso kit empotrado ducha 
+text      500.241      667.437      Senso kit empotrado ducha 
+text      830.272      663.765      Cromo
+text      877.016      663.765      GR004
+text      912.024      663.765      445€
+text      947.88      663.765      GR010
+text      982.888      663.765      605€
+text      1018.74      663.765      GR001
+text      1053.75      663.765      400€
+text      1089.61      663.765      GR007
+text      1124.68      663.765      540€
+text      362.551      658.437      monomando
+text      500.241      658.437      termostático
+text      774.744      649.589      Sets ducha
+text      830.272      649.589      Blanco
+text      877.016      649.589      GR005
+text      912.024      649.589      590€
+text      947.88      649.589      GR011
+text      982.888      649.589      785€
+text      1018.74      649.589      GR002
+text      1053.75      649.589      530€
+text      1089.61      649.589      GR008
+text      1124.68      649.589      700€
+text      830.272      635.413      Negro
+text      877.016      635.413      GR006
+text      912.024      635.413      590€
+text      947.88      635.413      GR012
+text      982.888      635.413      785€
+text      1018.74      635.413      GR003
+text      1053.75      635.413      530€
+text      1089.61      635.413      GR009
+text      1124.68      635.413      700€
+text      401.465      630.235      11,5
+text      540.112      630.235      11,5
+cuadradito      389.99      626.815
+cuadradito      390.041      626.815
+cuadradito      390.088      626.815
+cuadradito      528.663      626.815
+cuadradito      528.714      626.815
+cuadradito      528.763      626.815
+text      372.463      609.986      30
+text      511.11      609.986      30
+text      433.988      562.858      22,5
+text      572.662      562.858      22,5
+text      370.337      531.393      18,5
+text      509.01      531.393      18,5
+text      415.108      516.086      10
+text      553.782      516.086      10
+cuadradito      69.449      467.274
+cuadradito      188.859      467.274
+img_p0_1      fotito      68.4071      466.146
+img_p0_2      fotito      187.76      466.146
+text      361.346      398.38      Fonte columna
+text      500.246      398.38      Fonte columna 
+text      361.346      389.38      ducha monomando
+text      500.246      389.38      ducha termostático
+text      398.024      318.446      80
+text      540.589      318.446      81
+text      400.196      313.448      -
+text      542.761      313.448      -
+text      396.362      308.45      130
+text      538.927      308.45      130
+text      372.796      223.346      30
+text      509.34      223.346      31,5
+cuadradito      1005.31      206.391
+text      1011.56      206.391      colores
+cuadradito      74.409      198.148
+img_p0_3      fotito      73.3984      197.098
+text      1015.7      191.982      blanco mate
+cuadradito      192.898      189.148
+img_p0_4      fotito      191.887      188.098
+img_p0_7      fotito      1012.21      149.845
+img_p0_5      fotito      984.519      133.858
+text      993.323      126.833      cromo 
+text      995.171      120.33      brillo
+img_p0_6      fotito      1012.19      117.772
+text      1014.72      110.068      negro mate
+cuadradito      56.693      57.3652
+cuadradito      737.008      57.3652
+text      1349.46      57.3652      sets de ducha
+text      42.5197      42.6877      76
+text      1310.16      42.6877      77
+
+Generate a json array, where each element in the array is a product found in the pdf, including its available data, like color, size, or any other interesting product feature found in the pdf.
+
+When the information associated with the product has multiple choices (like multiple possible colors or sizes) use an array with each possible option.
+
+Example output:
+
+[
+{ "name": "caldera roca", "price": 99, "currency": "€", "propertyX": ["option1", "optioon2"] , "propertyZ": "120 cm"},
+{ "name": "grifo barato", "price": 20, "currency": "€", "prop": ["abc", "def"] },
+]
+
+answer only with the json example format, and do not include any reasoning except for the json itself. Make the assumptions you need and infer anything you need. Do not include anything else than the json response. Your response should be only the JSON. The JSON should include all the products you found in the pdf. Do not omit any product from the pdf and your answer should be limited to json. Aswer only with the final json and nothing else. 
+
+Do not include sentences for humans, like "Here's the json array" or anything like that. Just the json, nothing else.
+
+------------ INTIALIZE THE CHAT 20/07/2023 (joca's version modificated) -------------
+
+I have parsed a products catalog pdf and now I have all the pdf content operators.
+We need to parse these operators into a json object which will have product keys 
+like price, size, or any other information about the product.
+
+The format is:
+<elementType>    <x-coordinate>    <y-coordinates>    <extra-data>
+
+And normally there are lots of lines, one for each pdf operator. Not all the operators are important, but the most important thing is, that not every operator is relevant to be a whole produt and maybe it's only an attribute for another. So based in that you need to make assumptions of which lines could represent the same product and merge on a unique product .
+
+First pdf page: 
+
+text      232.279      721.614      sets de ducha
+text      770.74      717.224      PVP
+text      896.224      696.357      Kit empotrado Senso
+text      1048.74      696.357      Columna Fonte
+text      792.704      687.853      Medidas (cm)
+text      876.288      679.349      Monomando
+text      946.512      679.349      Termostático
+text      1018.02      679.349      Monomando
+text      1088.25      679.349      Termostático
+text      362.551      667.437      Senso kit empotrado ducha 
+text      500.241      667.437      Senso kit empotrado ducha 
+text      830.272      663.765      Cromo
+text      877.016      663.765      GR004
+text      912.024      663.765      445€
+text      947.88      663.765      GR010
+text      982.888      663.765      605€
+text      1018.74      663.765      GR001
+text      1053.75      663.765      400€
+text      1089.61      663.765      GR007
+text      1124.68      663.765      540€
+text      362.551      658.437      monomando
+text      500.241      658.437      termostático
+text      774.744      649.589      Sets ducha
+text      830.272      649.589      Blanco
+text      877.016      649.589      GR005
+text      912.024      649.589      590€
+text      947.88      649.589      GR011
+text      982.888      649.589      785€
+text      1018.74      649.589      GR002
+text      1053.75      649.589      530€
+text      1089.61      649.589      GR008
+text      1124.68      649.589      700€
+text      830.272      635.413      Negro
+text      877.016      635.413      GR006
+text      912.024      635.413      590€
+text      947.88      635.413      GR012
+text      982.888      635.413      785€
+text      1018.74      635.413      GR003
+text      1053.75      635.413      530€
+text      1089.61      635.413      GR009
+text      1124.68      635.413      700€
+text      401.465      630.235      11,5
+text      540.112      630.235      11,5
+cuadradito      389.99      626.815
+cuadradito      390.041      626.815
+cuadradito      390.088      626.815
+cuadradito      528.663      626.815
+cuadradito      528.714      626.815
+cuadradito      528.763      626.815
+text      372.463      609.986      30
+text      511.11      609.986      30
+text      433.988      562.858      22,5
+text      572.662      562.858      22,5
+text      370.337      531.393      18,5
+text      509.01      531.393      18,5
+text      415.108      516.086      10
+text      553.782      516.086      10
+cuadradito      69.449      467.274
+cuadradito      188.859      467.274
+img_p0_1      fotito      68.4071      466.146
+img_p0_2      fotito      187.76      466.146
+text      361.346      398.38      Fonte columna
+text      500.246      398.38      Fonte columna 
+text      361.346      389.38      ducha monomando
+text      500.246      389.38      ducha termostático
+text      398.024      318.446      80
+text      540.589      318.446      81
+text      400.196      313.448      -
+text      542.761      313.448      -
+text      396.362      308.45      130
+text      538.927      308.45      130
+text      372.796      223.346      30
+text      509.34      223.346      31,5
+cuadradito      1005.31      206.391
+text      1011.56      206.391      colores
+cuadradito      74.409      198.148
+img_p0_3      fotito      73.3984      197.098
+text      1015.7      191.982      blanco mate
+cuadradito      192.898      189.148
+img_p0_4      fotito      191.887      188.098
+img_p0_7      fotito      1012.21      149.845
+img_p0_5      fotito      984.519      133.858
+text      993.323      126.833      cromo 
+text      995.171      120.33      brillo
+img_p0_6      fotito      1012.19      117.772
+text      1014.72      110.068      negro mate
+cuadradito      56.693      57.3652
+cuadradito      737.008      57.3652
+text      1349.46      57.3652      sets de ducha
+text      42.5197      42.6877      76
+text      1310.16      42.6877      77
+
+Generate a json array, where each element in the array is a product found in the pdf, including its available data, like color, size, or any other interesting product feature found in the pdf.
+
+When the information associated with the product has multiple choices (like multiple possible colors or sizes) use an array with each possible option.
+
+The output json should be inside a key called "products" which the value will be the products array of that page.
+
+answer only with the json example format, and do not include any reasoning except for the json itself. Make the assumptions you need and infer anything you need. Do not include anything else than the json response. Your response should be only the JSON. The JSON should include all the products you found in the pdf. Do not omit any product from the pdf and your answer should be limited to json. Aswer only with the final json and nothing else. 
+
+Do not include sentences for humans, like "Here's the json array" or anything like that. Just the json, nothing else.
+
+
+------------ PROMPT PER PAGE 20/07/2023 (joca's version) -------------
+
+This is the ${pageNumber} page. Remember the previous context if you need more information about the products json output of this new page.
+
+Page ${pageNumber} of the pdf
+
+${pageContent}
+
+Generate a json array, where each element in the array is a product found in the pdf, including its available data, like color, size, or any other interesting product feature found in the pdf.
+
+When the information associated with the product has multiple choices (like multiple possible colors or sizes) use an array with each possible option.
+
+The output json should be inside a key called "products" which the value will be the products array of that page.
+
+answer only with the json example format, and do not include any reasoning except for the json itself. Make the assumptions you need and infer anything you need. Do not include anything else than the json response. Your response should be only the JSON. The JSON should include all the products you found in the pdf. Do not omit any product from the pdf and your answer should be limited to json. Aswer only with the final json and nothing else. 
+
+Do not include sentences for humans, like "Here's the json array" or anything like that. Just the json, nothing else.
+
+
+------------ PARSE ONLY A PAGE PROMPT 12/09/2023 (cristian's version) -------------
