@@ -1,19 +1,26 @@
 'use client'
 
-import { FocusFieldAtom, FocusProductAtom, ProductsAtom, ProductsSchemasAtom, addField, removeField } from "context/ProductsContext"
-import { WorkspaceContext, getComputedPage } from "context/WorkspaceContext"
-import { useContext, useEffect, useRef, useState } from "react"
+import {
+  FocusFieldAtom,
+  FocusProductAtom,
+  ProductsAtom,
+  ProductsSchemasAtom,
+  addField,
+  removeField
+} from "../../../context/ProductsContext"
+import { getComputedPage } from "../../../context/WorkspaceContext"
+import { useRef, useState } from "react"
 import { Key } from "./Key"
 import { PageActions } from "./PageActions"
 import Image from "next/image"
 import { ProductsList } from "./ProductsList"
 import { atom, useAtom } from 'jotai'
-import { ProductChangeAtom } from "../Editor"
+import { CurrentPageAtom } from "../../../context/WorkspaceContext"
 
 export const productsListAtom = atom(false)
 
 export function Products() {
-  const { workspace } = useContext(WorkspaceContext)
+  const [currentPage] = useAtom(CurrentPageAtom)
 
   const [pagesSchemas, setPagesSchemas] = useAtom(ProductsSchemasAtom)
   const [pagesData, setPagesData] = useAtom(ProductsAtom)
@@ -24,7 +31,7 @@ export function Products() {
 
   function updateSchemas(str: string) {
     const newPagesSchemas = [...pagesSchemas]
-    newPagesSchemas[getComputedPage(workspace, false)] = str
+    newPagesSchemas[getComputedPage(currentPage, false)] = str
 
     setPagesSchemas(newPagesSchemas)
 
@@ -42,7 +49,7 @@ export function Products() {
 
     // atomic update
     const newPages = [...pagesData]
-    const updatedProducts = newPages[getComputedPage(workspace, false)]
+    const updatedProducts = newPages[getComputedPage(currentPage, false)]
       .map((product: any) => {
         const reduceProduct: any = { ...product }
 
@@ -54,7 +61,7 @@ export function Products() {
       })
 
     // update products for the whole page 
-    newPages[getComputedPage(workspace, false)] = [...updatedProducts]
+    newPages[getComputedPage(currentPage, false)] = [...updatedProducts]
 
     setPagesData(newPages)
   }
@@ -71,7 +78,7 @@ export function Products() {
       <input
         id="schemaInput"
         type="text"
-        value={pagesSchemas[getComputedPage(workspace, false)]}
+        value={pagesSchemas[getComputedPage(currentPage, false)]}
         onChange={(e) => updateSchemas(e.target.value)}
         className="h-fit w-full px-4 py-2 bg-[#292929] placeholder:text-[#4E4E4E]
             rounded-md text-white font-light border-none outline-none focus:outline-3 
@@ -84,7 +91,7 @@ export function Products() {
       className="relative h-fit w-full flex flex-col justify-start"
       ref={productRef}
     >
-      <Product product={pagesData[getComputedPage(workspace, false)][focusProduct]} />
+      <Product product={pagesData[getComputedPage(currentPage, false)][focusProduct]} />
     </div>
     <div className="w-full h-fit text-white flex flex-col mb-7">
       {
@@ -111,7 +118,7 @@ export function Products() {
 }
 
 function Product({ product }: { product: any }) {
-  const { workspace } = useContext(WorkspaceContext)
+  const [currentPage] = useAtom(CurrentPageAtom)
 
   const [pagesData, setPagesData] = useAtom(ProductsAtom)
   const [focusProduct] = useAtom(FocusProductAtom)
@@ -150,7 +157,7 @@ function Product({ product }: { product: any }) {
           addField(
             setPagesData,
             pagesData,
-            getComputedPage(workspace, false),
+            getComputedPage(currentPage, false),
             focusProduct,
             propertyName
           )
@@ -173,13 +180,13 @@ export function ProductField(
   { keyName, fieldIndex }
     : { keyName: string, fieldIndex: number }
 ) {
-  const { workspace } = useContext(WorkspaceContext)
+  const [currentPage] = useAtom(CurrentPageAtom)
 
   const [pagesData, setPagesData] = useAtom(ProductsAtom)
   const [focusProduct, setFocusProduct] = useAtom(FocusProductAtom)
   const [focusField, setFocusField] = useAtom(FocusFieldAtom)
 
-  const product = pagesData[getComputedPage(workspace, false)][focusProduct]
+  const product = pagesData[getComputedPage(currentPage, false)][focusProduct]
 
   return (
     <div
@@ -208,7 +215,7 @@ export function ProductField(
           const value = e.target.value as string
 
           const pages = [...pagesData]
-          const changableProduct: any = pages[getComputedPage(workspace, false)][focusProduct]
+          const changableProduct: any = pages[getComputedPage(currentPage, false)][focusProduct]
 
           changableProduct[keyName as keyof typeof changableProduct] = value
           setPagesData(pages)
@@ -219,7 +226,7 @@ export function ProductField(
           removeField(
             setPagesData,
             pagesData,
-            getComputedPage(workspace, false),
+            getComputedPage(currentPage, false),
             focusProduct,
             keyName
           )

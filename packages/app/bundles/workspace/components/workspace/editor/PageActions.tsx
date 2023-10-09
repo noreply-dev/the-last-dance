@@ -1,10 +1,9 @@
 'use client'
 
-import { WorkspaceContext, getComputedPage } from 'context/WorkspaceContext'
+import { CurrentPageAtom, getComputedPage } from '../../../context/WorkspaceContext'
 import Image from 'next/image'
-import { useContext } from 'react'
-import { Products, productsListAtom } from './Products'
-import { FocusFieldAtom, FocusProductAtom, ProductsAtom, ProductsSchemasAtom, resetPage } from 'context/ProductsContext'
+import { productsListAtom } from './Products'
+import { FocusFieldAtom, FocusProductAtom, ProductsAtom, resetPage } from '../../../context/ProductsContext'
 import { useAtom } from 'jotai'
 
 
@@ -12,9 +11,8 @@ import { useAtom } from 'jotai'
 // FOR THE MOMENT, "MEJOR HECHO QUE PERFECTO"
 
 export function PageActions() {
-  const { workspace, setWorkspace } = useContext(WorkspaceContext)
+  const [currentPage] = useAtom(CurrentPageAtom)
 
-  const [, setPagesSchemas] = useAtom(ProductsSchemasAtom)
   const [pagesData, setPagesData] = useAtom(ProductsAtom)
   const [focusProduct] = useAtom(FocusProductAtom)
   const [, setFocusField] = useAtom(FocusFieldAtom)
@@ -42,7 +40,7 @@ export function PageActions() {
       text: 'Reset page',
       url: '/reset.svg',
       action: () => {
-        const page = getComputedPage(workspace, false)
+        const page = getComputedPage(currentPage, false)
         resetPage(setPagesData, pagesData, page, focusProduct, setFocusField)
       }
     },

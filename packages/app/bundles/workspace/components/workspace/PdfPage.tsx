@@ -47,7 +47,6 @@ export default function PdfPage() {
       // since the Object.keys returns always an array ordered
       // following a set of rules.The focusField index works here and
       // on the fields editor on the right
-      console.log(newPagesData, currentPage)
       let field = Object.keys(
         newPagesData[getComputedPage(currentPage, false)][focusProduct]
       )[focusField]

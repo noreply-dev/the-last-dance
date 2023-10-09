@@ -28,7 +28,7 @@ export function Workspace(props: any) {
               <PdfPreview />
             </div>
             <PdfPage />
-            {/*<Editor /> */}
+            <Editor />
           </div >
           : <div className="h-full w-full grid place-items-center">
             <p>No file provided</p>

@@ -1,17 +1,16 @@
 'use client'
 
-import { ConfigProvider } from "context/ConfigContext"
-import { WorkspaceContext, getComputedPage } from "context/WorkspaceContext"
-import { useContext, useEffect } from "react"
+import { CurrentPageAtom, getComputedPage } from "../../context/WorkspaceContext"
+import { useEffect } from "react"
 import { Products } from "./editor/Products"
 import { useAtom } from 'jotai'
-import { FocusFieldAtom, FocusProductAtom, ProductsAtom, ProductsSchemasAtom } from "context/ProductsContext"
+import { FocusFieldAtom, FocusProductAtom, ProductsAtom, ProductsSchemasAtom } from "../../context/ProductsContext"
 import { atom } from 'jotai'
 
 export const ProductChangeAtom = atom('nothing')
 
 export default function Editor() {
-  const { workspace } = useContext(WorkspaceContext)
+  const [currentPage] = useAtom(CurrentPageAtom)
 
   const [pagesSchemas, setPagesSchemas] = useAtom(ProductsSchemasAtom)
   const [pagesData, setPagesData] = useAtom(ProductsAtom)
@@ -51,7 +50,7 @@ export default function Editor() {
         event.preventDefault()
 
         const upperBound = Object.keys(
-          pagesData[getComputedPage(workspace, false)][focusProduct]
+          pagesData[getComputedPage(currentPage, false)][focusProduct]
         ).length - 1
 
         const newIndex = (focusField + 1) >= upperBound
@@ -65,13 +64,13 @@ export default function Editor() {
       if (event.code === 'Space' && event.shiftKey) {
         event.preventDefault()
 
-        if ((focusProduct + 1) <= pagesData[getComputedPage(workspace, false)].length - 1) {
+        if ((focusProduct + 1) <= pagesData[getComputedPage(currentPage, false)].length - 1) {
           setFocusProduct(focusProduct + 1)
           return
         }
 
         // create empty product object
-        const fields = pagesSchemas[getComputedPage(workspace, false)]
+        const fields = pagesSchemas[getComputedPage(currentPage, false)]
           .split(',')
           .filter(field => field !== '')
           .map((field: any) => field.trim())
@@ -85,7 +84,7 @@ export default function Editor() {
         const arr = [...pagesData]
 
         // add new blank product
-        arr[getComputedPage(workspace, false)].push(defaultObject)
+        arr[getComputedPage(currentPage, false)].push(defaultObject)
 
         // add a new product
         setPagesData(arr)
@@ -105,18 +104,11 @@ export default function Editor() {
 
     return () => removeEventListener("keydown", keyDownHandler)
   }, [pagesData, focusProduct, focusField,
-    setPagesData, setFocusProduct, setFocusField, workspace])
+    setPagesData, setFocusProduct, setFocusField, currentPage])
 
-  return <ConfigProvider>
-    <div className="relative h-full w-full bg-[#171717] px-10 py-10 flex flex-col
+  return <div className="relative h-full w-full bg-[#171717] px-10 py-10 flex flex-col
       justify-start items-start overflow-y-scroll overflow-x-hidden"
-    >
-      {/*         {
-          workspace.pages[workspace.currentPage]
-            ? <OutputEditor />
-            : <ConfigBuilder />
-        } */}
-      <Products />
-    </div >
-  </ConfigProvider>
+  >
+    <Products />
+  </div >
 }

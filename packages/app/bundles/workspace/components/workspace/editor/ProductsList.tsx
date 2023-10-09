@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useAtom } from 'jotai'
 import { ProductField, productsListAtom } from './Products'
-import { ProductsAtom, removeField } from 'context/ProductsContext'
-import { WorkspaceContext, getComputedPage } from 'context/WorkspaceContext'
-import { JSONViewer } from 'protolib'
+import { ProductsAtom, removeField } from '../../../context/ProductsContext'
+import { CurrentPageAtom, getComputedPage } from '../../../context/WorkspaceContext'
 import Image from 'next/image'
 
 export function ProductsList() {
@@ -23,7 +21,7 @@ export function ProductsList() {
 function AllProductsModal() {
   const [productsListVisible, setProductsListVisible] = useAtom(productsListAtom)
   const [productsData] = useAtom(ProductsAtom)
-  const { workspace } = useContext(WorkspaceContext)
+  const [currentPage] = useAtom(CurrentPageAtom)
 
   return (
     <div
@@ -40,7 +38,7 @@ function AllProductsModal() {
           gap-4 pt-4 pr-1'>
           {
 
-            productsData[getComputedPage(workspace, false)].map((product: any, index: number) => {
+            productsData[getComputedPage(currentPage, false)].map((product: any, index: number) => {
               return <ListProduct product={product} key={index} productIndex={index} />
             })
           }
@@ -77,11 +75,10 @@ function ListProductField({
   productIndex: number,
   keyName: string
 }) {
-  const { workspace } = useContext(WorkspaceContext)
-
+  const [currentPage] = useAtom(CurrentPageAtom)
   const [pagesData, setPagesData] = useAtom(ProductsAtom)
 
-  const product = pagesData[getComputedPage(workspace, false)][productIndex]
+  const product = pagesData[getComputedPage(currentPage, false)][productIndex]
 
   return (
     <div
@@ -105,7 +102,7 @@ function ListProductField({
           const value = e.target.value as string
 
           const pages = [...pagesData]
-          const changableProduct: any = pages[getComputedPage(workspace, false)][productIndex]
+          const changableProduct: any = pages[getComputedPage(currentPage, false)][productIndex]
 
           changableProduct[keyName as keyof typeof changableProduct] = value
           setPagesData(pages)
@@ -116,7 +113,7 @@ function ListProductField({
           removeField(
             setPagesData,
             pagesData,
-            getComputedPage(workspace, false),
+            getComputedPage(currentPage, false),
             productIndex,
             keyName
           )
