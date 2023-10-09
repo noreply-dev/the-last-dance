@@ -6,6 +6,7 @@ import { useSession, withSession } from 'protolib'
 import React, { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Page(props: any) {
   useSession(props.pageSession)
@@ -13,6 +14,7 @@ export default function Page(props: any) {
 
   useEffect(() => {
     setBody(document.body)
+    console.log('page session', props.pageSession)
   }, [])
 
   return (
@@ -46,6 +48,12 @@ export default function Page(props: any) {
           >
               AI</span>assited pdf products extraction tool
           </p>
+          <Link
+            href={props.pageSession.loggedIn
+              ? "/admin/files"
+              : "/auth/login?return=/admin/files"
+            }
+          >login</Link>
           {
             body && createPortal(
               <div className="absolute grid h-full w-full place-items-center z-[-1] ">
@@ -61,4 +69,4 @@ export default function Page(props: any) {
   )
 }
 
-export const getServerSideProps = SSR(async (context: NextPageContext) => withSession(context))
+export const getServerSideProps = SSR(async (context: NextPageContext) => withSession(context, undefined))
