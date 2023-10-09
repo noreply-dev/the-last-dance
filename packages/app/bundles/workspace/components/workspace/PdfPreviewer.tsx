@@ -62,7 +62,7 @@ export default function PdfPreview() {
     setFocusProduct(0)
     setFocusField(0)
 
-    setCurrentPage(currentPage + 1)
+    setCurrentPage(index + 1)
   }
 
   return (
