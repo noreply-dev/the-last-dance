@@ -2,10 +2,12 @@ import Editor from "../components/workspace/Editor";
 import PdfPage from "../components/workspace/PdfPage";
 import PdfPreview from "../components/workspace/PdfPreviewer";
 import { WorkspaceProvider } from "../context/WorkspaceContext";
-import { withSession } from 'protolib'
+import { useSession, withSession } from 'protolib'
 import { NextPageContext } from 'next'
 
-export function Workspace() {
+export function Workspace(props: any) {
+  useSession(props.pageSession)
+
   return <div className="h-full w-full flex flex-row justify-start items-start
     bg-red-400">
     <div className="h-full min-w-[15vw] bg-[#171717] flex flex-col justify-start items-center
@@ -19,5 +21,5 @@ export function Workspace() {
 }
 
 export const serverExecuted = async (context: NextPageContext) => {
-  return withSession(context, undefined)
+  return withSession(context, ['admin'])
 }
