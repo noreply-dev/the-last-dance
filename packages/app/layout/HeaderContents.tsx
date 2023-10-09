@@ -1,4 +1,4 @@
-import { ThemeToggle, GithubIcon, HeaderLink, NextLink, ColorToggleButton, LogoIcon, Session} from 'protolib'
+import { ThemeToggle, GithubIcon, HeaderLink, NextLink, ColorToggleButton, LogoIcon, Session } from 'protolib'
 import * as React from 'react'
 import {
   Text,
@@ -19,24 +19,24 @@ type HeaderContentsProps = {
 }
 const tooltipDelay = { open: 500, close: 150 }
 
-export const HeaderContents = React.memo(({menuPlacement='bottom', logoSize=30}: HeaderContentsProps) => {
+export const HeaderContents = React.memo(({ menuPlacement = 'bottom', logoSize = 30 }: HeaderContentsProps) => {
   const [session] = useAtom(Session)
   return (
     <>
       <XStack ai="center" space="$4">
-          <NextLink href="/">
-            <XStack py={logoSize/4} ai="center" px="$3" cur="pointer" my={-20}>
-              <LogoIcon>
-                {/* <ProtofyLogoSVG
+        <NextLink href="/">
+          <XStack py={logoSize / 4} ai="center" px="$3" cur="pointer" my={-20}>
+            <LogoIcon>
+              {/* <ProtofyLogoSVG
                   className="tamagui-icon"
                   width={logoSize}
                   height={logoSize+(logoSize/11)}
                 /> */}
-              </LogoIcon>
-              <Text>Protofy</Text>
-            </XStack>
-          </NextLink>
-        
+            </LogoIcon>
+            <Text>Auna</Text>
+          </XStack>
+        </NextLink>
+
 
         <TooltipGroup delay={tooltipDelay}>
           <XGroup boc="$color2" bw={1} mah={32} bc="transparent" ai="center" size="$3">
@@ -84,18 +84,18 @@ export const HeaderContents = React.memo(({menuPlacement='bottom', logoSize=30}:
         marginRight="$3"
       >
         <XStack ai="center" space="$3">
-            {session.loggedIn?<HeaderLink href="/profile">{session.user.id}</HeaderLink>:<HeaderLink href="/auth/login">Login</HeaderLink>}
-            <NextLink target="_blank" href="https://github.com/Protofy-xyz">
-              <TooltipSimple delay={0} restMs={25} label="Star on Github">
-                <YStack p="$2" opacity={0.7} hoverStyle={{ opacity: 1 }}>
-                  <VisuallyHidden>
-                    <Text>Github</Text>
-                  </VisuallyHidden>
-                  {/* @ts-ignore */}
-                  <GithubIcon width={23} />
-                </YStack>
-              </TooltipSimple>
-            </NextLink>
+          {session.loggedIn ? <HeaderLink href="/profile">{session.user.id}</HeaderLink> : <HeaderLink href="/auth/login">Login</HeaderLink>}
+          <NextLink target="_blank" href="https://github.com/Protofy-xyz">
+            <TooltipSimple delay={0} restMs={25} label="Star on Github">
+              <YStack p="$2" opacity={0.7} hoverStyle={{ opacity: 1 }}>
+                <VisuallyHidden>
+                  <Text>Github</Text>
+                </VisuallyHidden>
+                {/* @ts-ignore */}
+                <GithubIcon width={23} />
+              </YStack>
+            </TooltipSimple>
+          </NextLink>
 
           <HeaderMenu menuPlacement={menuPlacement}>
             <HeaderMenuContent />

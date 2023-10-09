@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import Notes from 'app/features/notes'
 import Head from 'next/head'
 import { SSR } from 'app/conf'
@@ -45,7 +47,7 @@ export const getServerSideProps = SSR(async (context: NextPageContext) => {
   const page = nextPages[route]
 
   if (page.getServerSideProps) {
-    const ret = await page.getServerSideProps(context)
+    const ret = await page.getServerSideProps(context, { fs, path })
     //console.log('going to route: ', route, page, ret)
     return ret
   }
