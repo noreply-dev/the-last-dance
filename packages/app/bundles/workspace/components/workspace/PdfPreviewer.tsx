@@ -8,12 +8,12 @@ import { WorkspaceContext, getComputedPage } from '../../context/WorkspaceContex
 import Image from 'next/image';
 import { FocusFieldAtom, FocusProductAtom, ProductsAtom, ProductsSchemasAtom } from '../../context/ProductsContext';
 import { useAtom } from 'jotai'
-import { fileBlobAtom } from 'pages';
+import { FileBlobAtom } from '../../nextPages/workspace';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 export default function PdfPreview() {
-  const [fileBlobUrl] = useAtom(fileBlobAtom)
+  const [fileBlobUrl, setFileBlobUrl] = useAtom(FileBlobAtom)
   const { workspace, setWorkspace } = useContext(WorkspaceContext)
 
   const [pagesSchemas, setPagesSchemas] = useAtom(ProductsSchemasAtom)

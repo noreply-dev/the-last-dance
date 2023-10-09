@@ -8,13 +8,13 @@ import { Stack, StackProps, XStack, YStack } from 'tamagui'
 
 export const DefaultLayout = React.forwardRef(({
   children,
-  sideMenu=null,
-  footer=<Footer />,
-  header=<AppBar><HeaderContents/></AppBar>,
-  seoProps={},
-  title="Protofy",
-  description="Protofy",
-  openGraph={
+  sideMenu = null,
+  footer = <Footer />,
+  header = <AppBar><HeaderContents /></AppBar>,
+  seoProps = {},
+  title = "Protofy",
+  description = "Protofy",
+  openGraph = {
     type: 'website',
     locale: 'en_US',
     url: 'https://protofy.xyz',
@@ -24,7 +24,7 @@ export const DefaultLayout = React.forwardRef(({
         url: 'https://protofy.xyz/social.png',
       },
     ],
-  }, 
+  },
   ...props
 }: {
   sideMenu?: React.ReactNode | null,
@@ -34,8 +34,8 @@ export const DefaultLayout = React.forwardRef(({
   seoProps?: any,
   title?: string
   description?: string,
-  openGraph?:any
-} & StackProps, ref:any) => {
+  openGraph?: any
+} & StackProps, ref: any) => {
   return (
     <Stack f={1} ref={ref} {...props}>
       {/* <NextSeo
@@ -46,16 +46,16 @@ export const DefaultLayout = React.forwardRef(({
       /> */}
 
       <ToastProvider swipeDirection="horizontal">
-          {header}
-          <XStack f={1}>
-            {sideMenu}
-            <YStack f={1}>
-              {children}
-            </YStack>
+        {header}
+        <XStack f={1}>
+          {sideMenu}
+          <YStack f={1}>
+            {children}
+          </YStack>
 
-          </XStack>
+        </XStack>
 
-          {footer}
+        {footer}
 
         <ToastViewport flexDirection="column-reverse" top="$2" left={0} right={0} />
         <ToastViewport
