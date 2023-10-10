@@ -19812,7 +19812,7 @@ __metadata:
     autoprefixer: 10.4.14
     eslint-config-next: ^13.0.4
     next: ^13.5.2
-    pdf-lib: ^1.17.1
+    pdf-lib: 1.17.1
     pm2: ^5.3.0
     postcss: 8.4.27
     protolib: 0.0.1
@@ -20876,6 +20876,7 @@ __metadata:
     multer: ^1.4.5-lts.1
     nodemon: 3.0.1
     openai: ^3.3.0
+    pdf-lib: 1.17.1
     pdfjs-dist: ^3.10.111
     standard: ^17.1.0
   languageName: unknown
@@ -21025,7 +21026,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pdf-lib@npm:^1.17.1":
+"pdf-lib@npm:1.17.1":
   version: 1.17.1
   resolution: "pdf-lib@npm:1.17.1"
   dependencies:
