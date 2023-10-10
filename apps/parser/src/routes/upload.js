@@ -1,30 +1,58 @@
 const fs = require('fs')
 const path = require('path')
-const multer = require('multer')
 const { Router } = require('express')
 const { _400, _500, _200 } = require('../lib/http')
 const uploadController = require('../controllers/upload.controller')
 
-const fileUploader = multer({
-  dest: path.join(__dirname, '..', '.temp')
-})
-
 const router = Router()
 
-router.post('/', fileUploader.single('filePdf'), async (req, res) => {
-  const { query } = req
+function resolvePdfUrl(req, res, next) {
+  const basePath = path.join(__dirname, '../../../../')
+  const body = req.body
+  console.log(body)
+
+  if (!body.pdfName
+    || !body.firstProduct
+    || isNaN(body.targetPage)
+    || !body.pdfPath) {
+    return _400(res, 'Unsuficient params to post this endpoint')
+  }
+
+  const pdfData = fs.readFileSync(path.join(basePath, body.pdfPath))
+  const tempPdfPath = path.join(__dirname, '../.temp/', Date.now() + '.pdf')
+
+  try {
+    if (!pdfData) {
+      throw new Error('Readed pdf data is empty')
+    }
+
+    fs.writeFileSync(tempPdfPath, pdfData)
+  } catch (err) {
+    console.log(err)
+    return _500(res, 'Cannot write file to the temp folder')
+  }
+
+  req.file = {
+    filename: body.pdfName,
+    path: tempPdfPath,
+    page: body.targetPage,
+  }
+  req.firstProduct = body.firstProduct
+  next()
+}
+
+router.post('/', resolvePdfUrl, async (req, res) => {
+  const { query, file, firstProduct } = req
   console.log('query params', query)
-  const file = req.file
 
   if (!file) {
     return _400(res, 'A file is required to post this endpoint')
   }
 
-  // mimetype: 'application/pdf',
-  if (file.mimetype.split('/')[1] !== 'pdf') {
-    return _400(res, 'Filetype is not supported by the service')
-  }
+  console.log('file', file)
+  return _200(res, 'WItrhout me')
 
+  query.firstProduct = { ...firstProduct }
   const gptResponse = await uploadController.pdfReducer(file.path, query)
 
   if (!gptResponse) {
@@ -34,7 +62,7 @@ router.post('/', fileUploader.single('filePdf'), async (req, res) => {
   return _200(res, undefined, gptResponse)
 })
 
-router.post('/page', fileUploader.single('filePdf'), async (req, res) => {
+router.post('/page', async (req, res) => {
   const { query } = req
   console.log('query params', query)
   const file = req.file

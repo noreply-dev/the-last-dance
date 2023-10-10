@@ -7,6 +7,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.urlencoded({ extended: true })) // query params
+app.use(express.json()) // query params
 
 app.get('/', (req, res) => {
   return res.json({
@@ -28,6 +29,6 @@ app.use('*', (req, res) => {
   return _400(res, 'Error: Unhandled endpoint')
 })
 
-app.listen(3000, () => {
+app.listen(4545, () => {
   console.log('Listening on http://localhost:3000')
 })
