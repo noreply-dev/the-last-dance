@@ -132,11 +132,6 @@ function StorageActions() {
 
   const actions = [
     {
-      icon: hardDrive,
-      text: 'save changes',
-      fn: () => { },
-    },
-    {
       icon: fileDown,
       text: 'download page data',
       fn: () => {

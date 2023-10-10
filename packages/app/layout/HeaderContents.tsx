@@ -12,6 +12,7 @@ import {
 import { HeaderMenuContent } from './HeaderMenuContent'
 import { HeaderMenu } from './HeaderMenu'
 import { useAtom } from 'jotai'
+import Link from 'next/link'
 
 type HeaderContentsProps = {
   logoSize?: number,
@@ -84,19 +85,7 @@ export const HeaderContents = React.memo(({ menuPlacement = 'bottom', logoSize =
         marginRight="$3"
       >
         <XStack ai="center" space="$3">
-          {session.loggedIn ? <HeaderLink href="/profile">{session.user.id}</HeaderLink> : <HeaderLink href="/auth/login">Login</HeaderLink>}
-          <NextLink target="_blank" href="https://github.com/Protofy-xyz">
-            <TooltipSimple delay={0} restMs={25} label="Star on Github">
-              <YStack p="$2" opacity={0.7} hoverStyle={{ opacity: 1 }}>
-                <VisuallyHidden>
-                  <Text>Github</Text>
-                </VisuallyHidden>
-                {/* @ts-ignore */}
-                <GithubIcon width={23} />
-              </YStack>
-            </TooltipSimple>
-          </NextLink>
-
+          {session.loggedIn ? <Link href="/admin/files">{session.user.id}</Link> : <Link href="/auth/login">Login</Link>}
           <HeaderMenu menuPlacement={menuPlacement}>
             <HeaderMenuContent />
           </HeaderMenu>

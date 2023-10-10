@@ -4,6 +4,7 @@ import { ProductField, ProductsListAtom } from './Products'
 import { ProductsAtom, removeField } from '../../../context/ProductsContext'
 import { CurrentPageAtom, getComputedPage } from '../../../context/WorkspaceContext'
 import Image from 'next/image'
+import trash from '../../../resources/trash.svg'
 
 export function ProductsList() {
   const [productsListVisible, setProductsListVisible] = useAtom(ProductsListAtom)
@@ -123,7 +124,7 @@ function ListProductField({
           active:outline-[#FF0000] active:outline-offset-2 duration-[0.12s]
             active:scale-[0.94] focus:outline-[#FF0000] focus:outline-offset-2"
       >
-        <Image src="/trash.svg" alt="delete field icon" height={18} width={18} />
+        <Image src={trash} alt="delete field icon" height={18} width={18} />
       </button>
     </div>
   )

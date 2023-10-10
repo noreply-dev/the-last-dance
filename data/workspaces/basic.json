@@ -1,25 +1,26 @@
 {
-    "resources": [
-        {
-            "type": "template",
-            "options": {
-                "templates":["basicApi"],
-                "paths": ["/apps/api/src/modules"]
-            }
-        }
-    ],
-    "menu": {
-        "Config": [
-            { "name": "users", "icon": "users", "type": "users", "path": "/" }
-        ],
-        "Files": [
-            { "name": "pdfs", "type": "files", "path": "/data/pdfs" }
-        ],
-        "Databases": [
-            { "name": "*", "icon": "database", "type": "database", "path": "/" },
-            { "name": "Add", "icon": "create", "type": "create", "path": "/data/databases", "options": {
-                "templates":["database"]
-            }}
-        ]
-    }
+  "resources": [
+      {
+          "type": "template",
+          "options": {
+              "templates":["basicApi"],
+              "paths": ["/apps/api/src/modules"]
+          }
+      }
+  ],
+  "menu": {
+      "Config": [
+          { "name": "users", "icon": "users", "type": "users", "path": "/" }
+      ],
+      "Files": [
+          { "name": "pdfs", "type": "files", "path": "/data/pdfs" }
+      ],
+      "Databases": [
+          { "name": "auth", "icon": "database", "type": "database", "path": "/data/auth" },
+          { "name": "products", "icon": "database", "type": "database", "path": "/data/products" },
+          { "name": "Add", "icon": "create", "type": "create", "path": "/data/databases", "options": {
+              "templates":["database"]
+          }}
+      ]
+  }
 }
