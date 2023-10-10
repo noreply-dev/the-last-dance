@@ -2,7 +2,7 @@
 
 import { CurrentPageAtom, getComputedPage } from '../../../context/WorkspaceContext'
 import Image from 'next/image'
-import { productsListAtom } from './Products'
+import { GPTHelperAtom, ProductsListAtom } from './Products'
 import { FocusFieldAtom, FocusProductAtom, ProductsAtom, resetPage } from '../../../context/ProductsContext'
 import { useAtom } from 'jotai'
 
@@ -22,18 +22,16 @@ export function PageActions() {
   const [focusProduct] = useAtom(FocusProductAtom)
   const [, setFocusField] = useAtom(FocusFieldAtom)
 
-  const [, setProductsListVisible] = useAtom(productsListAtom)
+  const [, setProductsListVisible] = useAtom(ProductsListAtom)
+  const [, setGPTHelperVisible] = useAtom(GPTHelperAtom)
 
   const actions = [
     {
-      text: 'Validate page as reviewed',
-      url: check,
-      action: () => { }
-    },
-    {
       text: 'AI page generation',
       url: bot,
-      action: () => { }
+      action: () => {
+        setGPTHelperVisible(true)
+      }
     }, {
       text: 'Show all page products',
       url: list,

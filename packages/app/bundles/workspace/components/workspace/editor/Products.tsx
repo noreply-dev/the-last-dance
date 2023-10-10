@@ -20,8 +20,10 @@ import { CurrentPageAtom } from "../../../context/WorkspaceContext"
 // assets
 import trash from '../../../resources/trash.svg'
 import enter from '../../../resources/return.svg'
+import { GPTHelper } from "./GPTHelper"
 
-export const productsListAtom = atom(false)
+export const ProductsListAtom = atom(false)
+export const GPTHelperAtom = atom(false)
 
 export function Products() {
   const [currentPage] = useAtom(CurrentPageAtom)
@@ -118,6 +120,7 @@ export function Products() {
       <PageActions />
     </div>
     <ProductsList />
+    <GPTHelper />
   </>
 }
 

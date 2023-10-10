@@ -1,12 +1,12 @@
 import { createPortal } from 'react-dom'
 import { useAtom } from 'jotai'
-import { ProductField, productsListAtom } from './Products'
+import { ProductField, ProductsListAtom } from './Products'
 import { ProductsAtom, removeField } from '../../../context/ProductsContext'
 import { CurrentPageAtom, getComputedPage } from '../../../context/WorkspaceContext'
 import Image from 'next/image'
 
 export function ProductsList() {
-  const [productsListVisible, setProductsListVisible] = useAtom(productsListAtom)
+  const [productsListVisible, setProductsListVisible] = useAtom(ProductsListAtom)
 
   return <>
     {
@@ -19,7 +19,7 @@ export function ProductsList() {
 }
 
 function AllProductsModal() {
-  const [productsListVisible, setProductsListVisible] = useAtom(productsListAtom)
+  const [productsListVisible, setProductsListVisible] = useAtom(ProductsListAtom)
   const [productsData] = useAtom(ProductsAtom)
   const [currentPage] = useAtom(CurrentPageAtom)
 
