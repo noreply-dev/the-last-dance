@@ -51,9 +51,6 @@ router.post('/', resolvePdfUrl, async (req, res) => {
     return _400(res, 'A file is required to post this endpoint')
   }
 
-  console.log('file', file)
-  return _200(res, 'WItrhout me')
-
   query.firstProduct = { ...firstProduct }
   const gptResponse = await uploadController.pdfReducer(file.path, query)
 

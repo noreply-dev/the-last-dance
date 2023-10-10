@@ -7,9 +7,11 @@ exports.generateGPTResponse = async (_pages, query) => {
 
   const openai = await connectToGPT()
   console.log('Generating page data ⟳')
-  console.log('- Using ChatGPT model', query.model)
+  console.log('- Using ChatGPT model', query.model || '3')
 
   let gptResponse
+
+  console.log('PROMP', iWantProducts(query.firstProduct, pages[0]))
 
   try {
     const completion = await openai.createChatCompletion({
@@ -18,6 +20,7 @@ exports.generateGPTResponse = async (_pages, query) => {
         role: 'user', content: iWantProducts(query.firstProduct, pages[0])
       }]
     })
+
     gptResponse = completion.data.choices[0].message.content
     gptResponse = JSON.parse(gptResponse)
   } catch (error) {
@@ -26,8 +29,9 @@ exports.generateGPTResponse = async (_pages, query) => {
   }
 
   // the chat generated a bad json file
-  if (!(gptResponse?.products)) {
+  if (Object.keys(gptResponse).length !== 1) {
     console.log('response 𐄂')
+    console.log(gptResponse)
     return undefined
   } else {
     console.log('Generated succesfully ✓')

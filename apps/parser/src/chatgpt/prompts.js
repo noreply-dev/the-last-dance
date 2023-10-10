@@ -99,7 +99,11 @@ Primera página del PDF:
 
 ${pdfData}
 
-Nadie va a revisar de entrada el resultado que me des por lo que es muy importante que no te dejes ningun articulo ni dupliques entradas. Se que para darme un mejor servicio y ser más amable vas a intentar darme información de contexto y aclaraciones. Es muy importante para mi que solo me devuelvas los JSON y no añadas textos antes ni después. Gracias ;)
+Nadie va a revisar de entrada el resultado que me des por lo que es muy importante que no te dejes ningun articulo ni dupliques entradas. Se que para darme un mejor servicio y ser más amable vas a intentar darme información de contexto y aclaraciones. Es muy importante para mi que solo me devuelvas los JSON con la clave products y con un array de productos. 
+
+Unicamente muestrame el json y nada más. No quiero que escribas ninguna explicacion, unicamente devuelveme el json y nada más. 
+
+No quiero que me devuelvas nada que no sea un json. Finge que eres una maquina de json y que solo puede hablar json. Gracias ;)
 `
 
 

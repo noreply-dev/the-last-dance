@@ -19,7 +19,6 @@ exports.generator = (obj) => {
 
   // Generate pages sections
   obj.pages.forEach((page, index) => {
-    console.log('page index', index, page)
     page.entities.forEach(op => {
       // avoid context with less than the clustering minimun
       // if (context.length <= CLUSTERING_MINIMUN) return
