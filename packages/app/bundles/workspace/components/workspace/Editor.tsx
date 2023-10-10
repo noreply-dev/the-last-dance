@@ -6,12 +6,15 @@ import { Products } from "./editor/Products"
 import { useAtom } from 'jotai'
 import { FocusFieldAtom, FocusProductAtom, ProductsAtom, ProductsSchemasAtom } from "../../context/ProductsContext"
 import { atom } from 'jotai'
+import { API } from 'protolib'
+import {useRouter} from 'next/router'
+import { ProductModel } from "../../models/product/productsModels"
 
 export const ProductChangeAtom = atom('nothing')
 
 export default function Editor() {
   const [currentPage] = useAtom(CurrentPageAtom)
-
+  const router = useRouter();
   const [pagesSchemas, setPagesSchemas] = useAtom(ProductsSchemasAtom)
   const [pagesData, setPagesData] = useAtom(ProductsAtom)
   const [focusProduct, setFocusProduct] = useAtom(FocusProductAtom)
@@ -23,7 +26,7 @@ export default function Editor() {
 
   // add shortcuts listeners
   useEffect(() => {
-    const keyDownHandler = (event: KeyboardEvent) => {
+    const keyDownHandler = async (event: KeyboardEvent) => {
       // add to schema
       if (event.ctrlKey && event.key.toLowerCase() === "n") {
         event.preventDefault()
@@ -63,6 +66,16 @@ export default function Editor() {
       // next product
       if (event.code === 'Space' && event.shiftKey) {
         event.preventDefault()
+        //currentPage
+        console.log("dataToSave: ",router.query.file)
+        //const product = new ProductModel()
+        const product = ProductModel.load({data: pagesData[getComputedPage(currentPage, false)][focusProduct], positionInPage: focusProduct, page: getComputedPage(currentPage,false),pdfPath: router.query.file})
+        console.log("product: ", product)
+        await API.post('/api/v1/products/',product)
+        //.forEach(async(product)=>{
+          //   await API.post('/api/v1/products',product)
+          // })
+        
 
         if ((focusProduct + 1) <= pagesData[getComputedPage(currentPage, false)].length - 1) {
           setFocusProduct(focusProduct + 1)
